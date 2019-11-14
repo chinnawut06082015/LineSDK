@@ -105,7 +105,7 @@ if(!is_null($events)){
                             new BlockStyleBuilder("#FFF200") // style สำหรับ footer block
                         )
                     );
-                    $replyData = new FlexMessageBuilder("Flex",$textReplyMessage);                                                
+                    $replyData = new FlexMessageBuilder("Flex",$textReplyMessage);                                               
                     break;
                 default:
                     $replyData = " คุณไม่ได้พิมพ์ A และ B";
@@ -118,10 +118,10 @@ if(!is_null($events)){
     }
 }
 // ส่วนของคำสั่งจัดเตียมรูปแบบข้อความสำหรับส่ง
-$textMessageBuilder = new TextMessageBuilder($replyData);
+//$textMessageBuilder = new TextMessageBuilder($replyData);
  
 //l ส่วนของคำสั่งตอบกลับข้อความ
-$response = $bot->replyMessage($replyToken,$textMessageBuilder);
+$response = $bot->replyMessage($replyToken,$replyData);
 if ($response->isSucceeded()) {
     echo 'Succeeded!';
     return;
