@@ -75,28 +75,18 @@ if(!is_null($events)){
                 case "B":
                     $textReplyMessage = "คุณพิมพ์ B";
                     break;
-                case (preg_match('/^create-/',$userMessage) ? true : false): // เมื่อพิมพ์คำว่า create- เข้ามา
-                    $respRichMenu = $bot->createRichMenu(
-                            new RichMenuBuilder(
-                                new RichMenuSizeBuilder(1686,2500), // ขนาด rich menu ปกติจะไม่เปลี่ยน แปลง
-                                true, // เปิดให้แสดง * จะไม่แสดงทันที 
-                                "Rich Menu 1", // ชื่อ rich menu
-                                "เมนู", // ข้อความที่จะแสดงที่แถบเมนู
-                                array( // array ของ action แต่ละบริเวณ
-                                    new RichMenuAreaBuilder( // action ที่ 1
-                                        new RichMenuAreaBoundsBuilder(0,0,1250,1686),// พื้นที่ A (x,y,width,height)
-                                        new MessageTemplateActionBuilder('m','Area A') // เปลี่ยนเฉพาะตัวที่ 2 ตามต้องการ 'Area A'
-                                    ),
-                                    new RichMenuAreaBuilder( // action ที่ 2
-                                        new RichMenuAreaBoundsBuilder(1250,0,1250,1686), // พื้นที่ B (x,y,width,height)
-                                        new UriTemplateActionBuilder('u','http://niik.in') // เปลี่ยนเฉพาะตัวที่ 2 ตามต้องการ 'http://niik.in'
-                                    ),                                                                                  
-                                )
-                            )
-                        );          
-                        // ให้ bot แจ้งกลับเกี่ยวกับ สถานะการสร้าง
-                        $textReplyMessage = " การสร้าง Rich Menu ".$respRichMenu->getRawBody();
-                        $replyData = new TextMessageBuilder($textReplyMessage);                                                     
+                case "ปัญหาระบบคอมพิวเตอร์":
+                    $textReplyMessage = new BubbleContainerBuilder(
+                            "ltr",NULL,NULL,
+                            new BoxComponentBuilder(
+                                "vertical",
+                                array(
+                                    new TextComponentBuilder("hello"),
+                                    new TextComponentBuilder("world")
+                                )
+                            )
+                        );
+                        $replyData = new FlexMessageBuilder("This is a Flex Message",$textReplyMessage);                                                 
                     break;
                 default:
                     $textReplyMessage = " คุณไม่ได้พิมพ์ A และ B";
