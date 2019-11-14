@@ -51,6 +51,13 @@ use LINE\LINEBot\RichMenuBuilder;
 use LINE\LINEBot\RichMenuBuilder\RichMenuSizeBuilder;
 use LINE\LINEBot\RichMenuBuilder\RichMenuAreaBuilder;
 use LINE\LINEBot\RichMenuBuilder\RichMenuAreaBoundsBuilder;
+use LINE\LINEBot\Constant\Flex\ContainerDirection;
+use LINE\LINEBot\Constant\Flex\ContainerType;
+use LINE\LINEBot\Constant\Flex\BubleContainerSize;
+use LINE\LINEBot\MessageBuilder\Flex\ContainerBuilder;
+use LINE\LINEBot\MessageBuilder\Flex\BubbleStylesBuilder;
+use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\BoxComponentBuilder;
+use LINE\LINEBot\MessageBuilder\Flex\ComponentBuilder\ComponentBuilder;
  
 // เชื่อมต่อกับ LINE Messaging API
 $httpClient = new CurlHTTPClient(LINE_MESSAGE_ACCESS_TOKEN);
@@ -69,12 +76,12 @@ if(!is_null($events)){
     switch ($typeMessage){
         case 'text':
             switch ($userMessage) {
-                case "เบอร์ติดต่อแต่ละสาขา":
+                /*case "เบอร์ติดต่อแต่ละสาขา":
                     $replyData = "สาขาแจ้งวัฒนะ 2533"."\n"."สาขาหนองแขม 3533"."\n"."สาขาบางกอกน้อย 4533"."\n"."สาขาหนองแขม 3533";
                     break;
                 case "B":
                     $replyData = "คุณพิมพ์ B";
-                    break;
+                    break;*/
                 case "ปัญหาระบบคอมพิวเตอร์":
                     $textReplyMessage = new BubbleContainerBuilder(
                         "ltr",  // กำหนด NULL หรือ "ltr" หรือ "rtl"
@@ -107,9 +114,9 @@ if(!is_null($events)){
                     );
                     $replyData = new FlexMessageBuilder("Flex",$textReplyMessage);                                               
                     break;
-                default:
+                /*default:
                     $replyData = " คุณไม่ได้พิมพ์ A และ B";
-                    break;                                      
+                    break;     */                                 
             }
             break;
         default:
@@ -121,7 +128,7 @@ if(!is_null($events)){
 //$textMessageBuilder = new TextMessageBuilder($replyData);
  
 //l ส่วนของคำสั่งตอบกลับข้อความ
-$response = $bot->replyMessage($replyToken,$replyData);
+$response = $bot->constant($replyToken,$replyData);
 if ($response->isSucceeded()) {
     echo 'Succeeded!';
     return;
