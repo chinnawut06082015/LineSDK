@@ -70,10 +70,10 @@ if(!is_null($events)){
         case 'text':
             switch ($userMessage) {
                 case "เบอร์ติดต่อแต่ละสาขา":
-                    $textReplyMessage = "สาขาแจ้งวัฒนะ 2533"."\n"."สาขาหนองแขม 3533"."\n"."สาขาบางกอกน้อย 4533"."\n"."สาขาหนองแขม 3533";
+                    $replyData = "สาขาแจ้งวัฒนะ 2533"."\n"."สาขาหนองแขม 3533"."\n"."สาขาบางกอกน้อย 4533"."\n"."สาขาหนองแขม 3533";
                     break;
                 case "B":
-                    $textReplyMessage = "คุณพิมพ์ B";
+                    $replyData = "คุณพิมพ์ B";
                     break;
                 case "ปัญหาระบบคอมพิวเตอร์":
                     $textReplyMessage = new BubbleContainerBuilder(
@@ -108,20 +108,20 @@ if(!is_null($events)){
                     $replyData = new FlexMessageBuilder("Flex",$textReplyMessage);                                                
                     break;
                 default:
-                    $textReplyMessage = " คุณไม่ได้พิมพ์ A และ B";
+                    $replyData = " คุณไม่ได้พิมพ์ A และ B";
                     break;                                      
             }
             break;
         default:
-            $textReplyMessage = json_encode($events);
+            $replyData = json_encode($events);
             break;  
     }
 }
 // ส่วนของคำสั่งจัดเตียมรูปแบบข้อความสำหรับส่ง
-$textMessageBuilder = new TextMessageBuilder($textReplyMessage);
+$textMessageBuilder = new TextMessageBuilder($replyData);
  
 //l ส่วนของคำสั่งตอบกลับข้อความ
-$response = $bot->replyMessage($replyToken,$replyData);
+$response = $bot->replyMessage($replyToken,$textMessageBuilder);
 if ($response->isSucceeded()) {
     echo 'Succeeded!';
     return;
